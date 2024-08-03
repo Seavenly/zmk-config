@@ -1,0 +1,77 @@
+/*
+  ╭─────────────────────────┬─────────────────────────╮
+  │ LT5 LT4 LT3 LT2 LT1 LT0 │ RT0 RT1 RT2 RT3 RT4 RT5 │
+  │ LM5 LM4 LM3 LM2 LM1 LM0 │ RM0 RM1 RM2 RM3 RM4 RM5 │
+  │ LB5 LB4 LB3 LB2 LB1 LB0 │ RB0 RB1 RB2 RB3 RB4 RB5 │
+  ╰───────────╮ LH2 LH1 LH0 │ RH0 RH1 RH2 ╭───────────╯
+              ╰─────────────┴─────────────╯             */
+
+#define COMBO_TERM_FAST 18
+#define COMBO_TERM_SLOW 30
+
+#define COMBO_IDLE_FAST 150
+#define COMBO_IDLE_SLOW 50
+
+#define HMC_TAB &hml LS(LALT) TAB
+#define HMC_REPEAT &hml_repeat LS(LCTRL) 0
+#define HMC_LPAR &hmr_lpar_lt RS(RCTRL) 0
+#define HMC_RPAR &hmr_rpar_gt RS(RALT) 0
+
+#define ZMK_COMBO(name, combo_bindings, keypos, combo_layers, combo_timeout, combo_idle) \
+    / { \
+        combos { \
+            compatible = "zmk,combos"; \
+            combo_ ## name { \
+                timeout-ms = <combo_timeout>; \
+                bindings = <combo_bindings>; \
+                key-positions = <keypos>; \
+                layers = <combo_layers>; \
+                require-prior-idle-ms = <combo_idle>; \
+            }; \
+        }; \
+    };
+
+// Left Hand - Horizontal - Top
+ZMK_COMBO(return,   &kp RET,    LT1 LT2,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(escape,   &kp ESC,    LT2 LT3,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// Left Hand - Horizontal - Middle
+ZMK_COMBO(repeat,   HMC_REPEAT  LM1 LM2,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(tab,      HMC_TAB,    LM2 LM3,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// Left Hand - Horizontal - Bottom
+ZMK_COMBO(paste,    &kp LG(V),  LB1 LB2,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(copy,     &kp LG(C),  LB2 LB3,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(cut,      &kp LG(X),  LB1 LB3,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// Left Hand - Vertical - Column 0
+ZMK_COMBO(percent,  &kp PRCNT,  LT0 LM0,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(tilde,    &kp TILDE,  LM0 LB0,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// Left Hand - Vertical - Column 1
+ZMK_COMBO(dollar,   &kp DLLR,   LT1 LM1,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(equal,    &kp EQUAL,  LM1 LB1,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// Left Hand - Vertical - Column 2
+ZMK_COMBO(hash,     &kp HASH,   LT2 LM2,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(backslash,&kp BSLH,   LM2 LB2,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// Left Hand - Vertical - Column 3
+ZMK_COMBO(at,       &kp AT,     LT3 LM3,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(grave,    &kp GRAVE,  LM3 LB3,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+
+// Right Hand - Horizontal - Top
+ZMK_COMBO(comma,    &kp COMMA,  RT1 RT2,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(semi,     &kp SEMI,   RT2 RT3,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// Right Hand - Horizontal - Middle
+ZMK_COMBO(lpar,     HMC_LPAR    RM1 RM2,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(rpar,     HMC_RPAR,   RM2 RM3,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// Right Hand - Horizontal - Bottom
+ZMK_COMBO(paste,    &lbt_lbc,   LB1 LB2,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(copy,     &rbt_rbc,   LB2 LB3,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// Right Hand - Vertical - Column 0
+ZMK_COMBO(caret,    &kp CARET,  RT0 RM0,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(exclaim,  &kp EXCL,   RM0 RB0,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// Right Hand - Vertical - Column 1
+ZMK_COMBO(plus,     &kp PLUS,   RT1 RM1,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(question, &kp QMARK,  RM1 RB1,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// Right Hand - Vertical - Column 2
+ZMK_COMBO(asterisk, &kp STAR,   RT2 RM2,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(colon,    &kp COLON,  RM2 RB2,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// Right Hand - Vertical - Column 2
+ZMK_COMBO(ampersand,&kp AMPS,   RT3 RM3,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(pipe,     &kp PIPE,   RM3 RB3,    DEF NAV NUM,    COMBO_TERM_FAST, COMBO_IDLE_FAST)
